@@ -31,7 +31,7 @@ script:
   - mvn test -B
 #  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then mvn sonar:sonar -Dsonar.projectKey=PantheonTechnologies_lighty-core -Dsonar.host.url=https://sonarcloud.io; fi
 #  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then mvn sonar:sonar -Dsonar.projectKey=vainyksi_lighty-core-coverity1 -Dsonar.host.url=https://sonarcloud.io; fi
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=vainyksi_lighty-core-coverity1
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:report install sonar:sonar -Dsonar.projectKey=vainyksi_lighty-core-coverity1 -Dmaven.test.failure.ignore=false
 
 
 # before_cache happens before the second part of the cache phase,
