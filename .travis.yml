@@ -1,4 +1,4 @@
-dist: xenial
+dist: trusty
 language: java
 
 jdk:
@@ -21,15 +21,18 @@ install:
 # addons are executed between install and script
 addons:
   sonarcloud:
-    organization: "pantheon-tech"
+    organization: "vainyksi"
     token:
-      secure: "fkcWYUhv3v2sq2uJXu+IPhnZAQpMoytVk/GxzpYsnRVXIv1Ttm3aWWIn9NekhCRvKbSPTvggc522D/uxz1uiCTbpK4HM8Pf3pCQZkVCrAWFrTmeIuhJY4lz4JrEWzUmFH0qx/9xUrktxUESIcJsbr6BEDOtYfN3r4BhaCXkXqgfNZT2mas9gAxlLjDecauaETbSuQZydR6wkuzPLq5o7VvEyYt7jC3iNaCpSb05Nk+tdr2B36pe/O92bLasgbmCxUMY/UELE/Dk/YxMBXv4/sH1Kw45NGTqq5b0317OM8xhAylNokruw22J8k788xtXwySetGkyMsnOiu+ibtDVFbt+mlJ7p5JaMX7ZWkHP5iHgQypqm0gsLRwq2HdwZj4UramwmOPqvAl2veCzTkQ+R01nr/BjAmRxO1kVtK7/lTjHFwV527e7e2ZtvvEJEq1ukzJ25jbHDxZrrYqykMAPwgHztjiHZpQymSN7fnXSnbmo3LDsXnQwKv+z3f6J6zkh/EonxDEr3XEP+ixGCbl4M/Duq0M5Qy6Qi/j8KmhD1JQ/Hys0tl2Co9BoQ+wLRM0DqkWrWisay9ZsJKO6PB7mmo0JGbH9H1JHiuiC2CHPMxktbe+lf476Vnewe1yU/O/116QC+vPlBy0DBgNXSr4Q7BtaR6P/eUoRag06uAOk3fLw="
+      secure: "TuNK7Ma81KN2FLBA4ZZIhe2XD3FCkxndsCMYyOj6tirWRyUJFT8Pwyz32c4xP6GizLQkqJWE07bvqVkJL6wVYEVdYmcVE15Q0XyA+4EEy3C4bgA3bn8Klw8bCoDwxk6Owe3bD1Zg963r+t5xVWDn1eymd25M2fEoDgAyQ44V2d/2yyegl15oF0tTNYptqDxSyijx67KZXq8g2ARMICxRvyc6pvpihkjlOokVnSgL+SB4EAVZBHWUVL7uB2d9dSKDEoNF7VoSluiN/sGnfu1BBA9RQXAKRE4awO7e63SbR9yvtbPBxjVWqltc8EYl6Txs8txImcJlvzVPlvlgtgFTywxjdsG7bThh7zBbOF6fuhPqPiJiEaskddWWzHMPogVbn517AmBpASy6w8iGmt7nMDd7at0xHNZPnjPZf2LN1K6hKavdBl8o7c5u+o9wQytTjdN6jQtSEq3TeDcC6JR7f5d4dGbmMrDfXqZ26Cj6FAcRN0RxnW6nqhyWvpsrwuFXYAffDf06QyLTGIfWjeclGjv5zAkFgMIJ/sidp46i4udiPGEs/qkrI8yR354lxMxcHZBFpAc2Aaj4tbSkKwt/simbsmU0NhLx/miNPrNgqsLFs0fuvKaE94N0o9C+w0jBzWT9tbbkOWYkweRuM8XNi8qrWpmmMoO+G+BEql+s2c8="
 
 # splitting the build into install and test parts gives us a quicker way
 # to identify what went wrong
 script:
   - mvn test -B
-  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then mvn sonar:sonar -Dsonar.projectKey=PantheonTechnologies_lighty-core -Dsonar.host.url=https://sonarcloud.io; fi
+#  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then mvn sonar:sonar -Dsonar.projectKey=PantheonTechnologies_lighty-core -Dsonar.host.url=https://sonarcloud.io; fi
+#  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then mvn sonar:sonar -Dsonar.projectKey=vainyksi_lighty-core-coverity1 -Dsonar.host.url=https://sonarcloud.io; fi
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=vainyksi_lighty-core-coverity1
+
 
 # before_cache happens before the second part of the cache phase,
 # which happens after script
